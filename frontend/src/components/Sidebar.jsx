@@ -1,31 +1,33 @@
 import React, { useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FaAngleDown, FaAngleUp, FaHeart, FaHome, FaShoppingBag, FaShoppingCart, FaTimes, FaUserCircle } from 'react-icons/fa'
 import { CiLogout } from 'react-icons/ci'
 import { RiMenu3Fill } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux';
-import { useLoginMutation } from '../redux/api/userApiSlice';
+import { useLogoutMutation } from '../redux/api/userApiSlice';
 import { logout } from '../redux/features/auth/authSlice';
 
 const NavLinks = ({handleClick}) => {
   const [toogle, setToogle] = useState(false)
-  const [logoutApiCall] = useLoginMutation()
+  const [logoutApiCall] = useLogoutMutation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   
   const { userInfo } = useSelector(state => state.auth)
+
   const toogleDropDown = () =>{
     setToogle(!toogle)
   }
   const logoutHandler = async () => {
     try {
-      logoutApiCall().unwrap
-      dispatch(logout)
+      await logoutApiCall().unwrap()
+      dispatch(logout())
       navigate('/login')
     } catch (error) {
       console.error(error)
     }
-  } 
+  }
+
   return <div className='flex justify-between flex-col h-full '>
     <div className='flex flex-col justify-center gap-2 mt-10'>
       <NavLink to="/" 
@@ -55,11 +57,23 @@ const NavLinks = ({handleClick}) => {
     </div>
     <div className='flex flex-col mb-10 md:m-0 gap-5 relative'>
       <button onClick={toogleDropDown} className="flex flex-row justify-start items-center text-lg font-medium text-gray-400 hover:text-cyan-400">
-        <FaUserCircle className='mr-2 text-xl' /> Ando Henri {!toogle ? <FaAngleDown className='ml-4'/> : <FaAngleUp className='ml-4'/>}
+        <FaUserCircle className='mr-2 text-xl' /> {userInfo ? userInfo.username : ''} {!toogle ? <FaAngleDown className='ml-4'/> : <FaAngleUp className='ml-4'/>}
       </button>
       <button onClick={logoutHandler} className="flex flex-row justify-start items-center text-lg font-medium text-gray-400 hover:text-cyan-400">
         <CiLogout className='mr-2 text-xl' /> Logout
       </button>
+      {toogle && userInfo && <div className="flex flex-col flex-start absolute top-[-13rem] right-6 rounded bg-[#000000dc]">
+        {userInfo.isAdmin ? <>
+          <Link to='/users' className='text-white font-semibold hover:text-cyan-400 py-2 px-4'>Users</Link>
+          <Link to='/products' className='text-white font-semibold hover:text-cyan-400 py-2 px-4'>Products</Link>
+          <Link to='/orders' className='text-white font-semibold hover:text-cyan-400 py-2 px-4'>Orders</Link>
+          <Link to='/dashboard' className='text-white font-semibold hover:text-cyan-400 py-2 px-4'>Dashboard</Link>
+          <Link to='/categories' className='text-white font-semibold hover:text-cyan-400 py-2 px-4'>Categories</Link>
+          <Link to='/profile' className='text-white font-semibold hover:text-cyan-400 py-2 px-4'>Profile</Link>
+        </>:<>
+          <Link to='/profile' className='text-white font-semibold hover:text-cyan-400 py-2 px-4'>Profile</Link>
+        </>}
+      </div>}
     </div>
   </div>
 };
