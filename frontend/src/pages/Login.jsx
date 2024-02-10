@@ -3,7 +3,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { useLoginMutation } from "../redux/api/userApiSlice"
 import { setCredentials } from "../redux/features/auth/authSlice"
-import Loqder from '../components/Loader'
 import Loader from "../components/Loader"
 
 const Login = () => {
@@ -13,8 +12,7 @@ const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const [login, {isLoading}] = useLoginMutation()
-
+  const [login, {isLoading, error }] = useLoginMutation()
   const { userInfo } = useSelector(state => state.auth)
 
   const { search } = useLocation()
@@ -31,7 +29,6 @@ const Login = () => {
     e.preventDefault()
     try {
       const res = await login({email, password}).unwrap()
-      console.log(res)
       dispatch(setCredentials({...res}))
     } catch (error) {
       console.error(error?.data?.message || error.message)
@@ -39,11 +36,11 @@ const Login = () => {
   }
 
   return (
-    <div className='flex anima flex-wrap items-stretch w-full flex-col-reverse sm:flex-row sm:items-center h-screen bg-gradient-to-br from-black to-[#121286]'>
+    <div className='flex flex-wrap items-stretch w-full flex-col-reverse sm:flex-row sm:items-center h-screen bg-gradient-to-br from-black to-[#121286]'>
       <div className='flex-1 p-10 max-w-[500px]'>
         <h1 className='text-white text-2xl font-bold mb-4'>Sign In</h1>
         <form onSubmit={loginHandler} className="container">
-          <label className='text-white text-sm font-medium block mt-4 mb-1'>Email Addrss</label>
+          <label className='text-white text-sm font-medium block mt-4 mb-1'>Email Address</label>
           <input type="email" value={email} onChange={e => setEmail(e.target.value)} className='w-full p-2 bg-gray-300 text-[#0a0808c7] border rounded' placeholder='Enter your email'/>
           <label className='text-white text-sm font-medium block mt-4 mb-1'>Password</label>
           <input type="password" value={password} onChange={e => setPassword(e.target.value)} className='w-full p-2 bg-gray-300 text-[#0a0808c7] border rounded' placeholder='Enter your password'/>

@@ -10,6 +10,8 @@ import './index.css'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from './redux/store'
+import PrivateRoute from './components/PrivateRoute.jsx'
+import Profile from './pages/Users/Profile.jsx'
 
 ReactDOM.createRoot(document.getElementById('root'))
 .render(
@@ -17,14 +19,19 @@ ReactDOM.createRoot(document.getElementById('root'))
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
+          <Route path='/login' element={<Login />}/>
+          <Route path='/register' element={<Register />}/>
+          
           <Route path='/' element={<App/>} >
             <Route index element={<Home />} />
             <Route path='/shop' element={<Shop />} />
             <Route path='/favorite' element={<Shop />} />
             <Route path='/cart' element={<Shop />} />
+            <Route path='' element={<PrivateRoute />}>
+              <Route path='/profile' element={<Profile/>}/>
+            </Route>
           </Route>
-          <Route path='/login' element={<Login />}/>
-          <Route path='/register' element={<Register />}/>
+          
         </Routes>
       </BrowserRouter>
     </Provider>

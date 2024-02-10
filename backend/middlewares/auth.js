@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken')
-const userModel = require('../models/userModel')
 
 exports.authanticate = (req, res, next) => {
     try {
@@ -7,12 +6,12 @@ exports.authanticate = (req, res, next) => {
         const token = req.headers.cookie.split('=')[1]
         const decodedToken = jwt.verify(token, 'TOKEN')
         req.auth = {
-            userId: decodedToken.userId,
+            _id: decodedToken._id,
             isAdmin: decodedToken.isAdmin
         }
         next()
     } catch (error) {
-        res.status(401).json({message: "User not authentified!"})
+        res.status(401).json(error)
     }
 }
 exports.authenticateAdmin = (req, res, next) => {

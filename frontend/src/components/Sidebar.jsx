@@ -62,7 +62,7 @@ const NavLinks = ({handleClick}) => {
       <button onClick={logoutHandler} className="flex flex-row justify-start items-center text-lg font-medium text-gray-400 hover:text-cyan-400">
         <CiLogout className='mr-2 text-xl' /> Logout
       </button>
-      {toogle && userInfo && <div className="flex flex-col flex-start absolute top-[-13rem] right-6 rounded bg-[#000000dc]">
+      {toogle && userInfo && <div className={`flex flex-col flex-start absolute ${userInfo.isAdmin ? 'top-[-15rem]': 'top-[-3rem]'}  right-1 rounded bg-[#000000dc]`}>
         {userInfo.isAdmin ? <>
           <Link to='/users' className='text-white font-semibold hover:text-cyan-400 py-2 px-4'>Users</Link>
           <Link to='/products' className='text-white font-semibold hover:text-cyan-400 py-2 px-4'>Products</Link>

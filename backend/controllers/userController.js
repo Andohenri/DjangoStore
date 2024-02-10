@@ -11,11 +11,20 @@ exports.signup = (req, res) => {
             email,
             password: hash
         })
-        .then(() => res.status(201).json({ message: "User created!" }))
+        .then((user) => {
+            res.status(201).json({
+                _id: user._id,
+                username: user.username,
+                email: user.email,
+                isAdmin: user.isAdmin,
+                token: generateToken(res, user._id , user.isAdmin)
+            })
+        })
         .catch(error => res.status(400).json(error))
     })
     .catch(error => res.status(500).json(error))
 }
+
 exports.login = (req, res) => {
     User.findOne({ email: req.body.email })
     .then(user => {
@@ -26,12 +35,16 @@ exports.login = (req, res) => {
                 return res.status(401).json({ message : 'email/mot de passe incorrecte!' })
             }
             res.status(200).json({
-                userId: user._id,
+                _id: user._id,
+                username: user.username,
+                email: user.email,
+                isAdmin: user.isAdmin,
                 token: generateToken(res, user._id, user.isAdmin)
             })
         }).catch(err => res.status(500).json({ err }))
     }).catch(error => res.status(500).json({ error2: error }))
 }
+
 exports.logout = (req, res) => {
     res.cookie('jwt', '', {
         httpOnly: true,
@@ -39,6 +52,7 @@ exports.logout = (req, res) => {
     })
     res.status(200).json({message: "Logged out succesfully!"})
 }
+
 exports.getUsers = async (req, res) => {
     await User.find({}).select("-password")
     .then(user => {
@@ -46,13 +60,15 @@ exports.getUsers = async (req, res) => {
     })
     .catch(err => res.status(404).json({error: err}))
 }
+
 exports.getCurrentUserProfile = async (req, res) => {
-    await User.findById(req.auth.userId).select("-password")
+    await User.findById(req.auth._id).select("-password")
     .then(user => {
         res.status(201).json(user)
     })
     .catch(err => res.status(404).json({error: err}))
 }
+
 exports.updateCurrentUserProfile = async (req, res) => {
     await User.findById(req.auth.userId)
     .then(userfound => {
@@ -64,10 +80,16 @@ exports.updateCurrentUserProfile = async (req, res) => {
                 userfound.password = hash
             }).catch(err => res.status(500).json(err)) 
         }
-        userfound.save()
-        return res.status(200).json({message: "Profile updated sucessfully!"})
+        const user = userfound.save()
+        return res.status(200).json({
+            _id: user._id,
+            username: user.username,
+            email: user.email,
+            isAdmin: user.isAdmin
+        })
     }).catch(err => res.status(500).json(err))
 }
+
 exports.deleteUserById = async (req, res) => {
     await User.findOneAndDelete({_id: req.params.id})
     .then(userFound => {
@@ -77,18 +99,20 @@ exports.deleteUserById = async (req, res) => {
         res.status(200).json({message: "User deleted succesfuly!"})
     }).catch(error => res.status(500).json({ message: error.message }))
 }
+
 exports.getUserById = async (req, res) => {
     await User.findById(req.params.id)
     .then(user => res.status(200).json(user))
     .catch(() => res.status(404).json({message: "User not found!"}))
 }
+
 exports.updateUserById = async (req, res) => {
     await User.findById(req.params.id)
     .then(userfound => {
         userfound.username = req.body.username || userfound.username
         userfound.email = req.body.email || userfound.email
-        userfound.save()
-        return res.status(200).json({message: "User updated sucessfully!"})
+        const updateUser = userfound.save()
+        return res.status(200).json({updateUser})
     }).catch(err => res.status(500).json({message: "User not found!"}))
 
 }
