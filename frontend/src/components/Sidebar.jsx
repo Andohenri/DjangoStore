@@ -64,11 +64,11 @@ const NavLinks = ({handleClick}) => {
       </button>
       {toogle && userInfo && <div className={`flex flex-col flex-start absolute ${userInfo.isAdmin ? 'top-[-15rem]': 'top-[-3rem]'}  right-1 rounded bg-[#000000dc]`}>
         {userInfo.isAdmin ? <>
-          <Link to='/users' className='text-white font-semibold hover:text-cyan-400 py-2 px-4'>Users</Link>
-          <Link to='/products' className='text-white font-semibold hover:text-cyan-400 py-2 px-4'>Products</Link>
-          <Link to='/orders' className='text-white font-semibold hover:text-cyan-400 py-2 px-4'>Orders</Link>
-          <Link to='/dashboard' className='text-white font-semibold hover:text-cyan-400 py-2 px-4'>Dashboard</Link>
-          <Link to='/categories' className='text-white font-semibold hover:text-cyan-400 py-2 px-4'>Categories</Link>
+          <Link to='/admin/users' className='text-white font-semibold hover:text-cyan-400 py-2 px-4'>Users</Link>
+          <Link to='/admin/products' className='text-white font-semibold hover:text-cyan-400 py-2 px-4'>Products</Link>
+          <Link to='/admin/orders-list' className='text-white font-semibold hover:text-cyan-400 py-2 px-4'>Orders</Link>
+          <Link to='/admin/dashboard' className='text-white font-semibold hover:text-cyan-400 py-2 px-4'>Dashboard</Link>
+          <Link to='/admin/categories' className='text-white font-semibold hover:text-cyan-400 py-2 px-4'>Categories</Link>
           <Link to='/profile' className='text-white font-semibold hover:text-cyan-400 py-2 px-4'>Profile</Link>
         </>:<>
           <Link to='/profile' className='text-white font-semibold hover:text-cyan-400 py-2 px-4'>Profile</Link>

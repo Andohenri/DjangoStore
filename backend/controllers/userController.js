@@ -70,7 +70,7 @@ exports.getCurrentUserProfile = async (req, res) => {
 }
 
 exports.updateCurrentUserProfile = async (req, res) => {
-    await User.findById(req.auth.userId)
+    await User.findById(req.auth._id)
     .then(userfound => {
         userfound.username = req.body.username || userfound.username
         userfound.email = req.body.email || userfound.email
@@ -80,12 +80,12 @@ exports.updateCurrentUserProfile = async (req, res) => {
                 userfound.password = hash
             }).catch(err => res.status(500).json(err)) 
         }
-        const user = userfound.save()
+        userfound.save()
         return res.status(200).json({
-            _id: user._id,
-            username: user.username,
-            email: user.email,
-            isAdmin: user.isAdmin
+            _id: userfound._id,
+            username: userfound.username,
+            email: userfound.email,
+            isAdmin: userfound.isAdmin
         })
     }).catch(err => res.status(500).json(err))
 }

@@ -15,5 +15,6 @@ router.route('/profile')
 router.route('/:id')
     .delete(authanticate, authenticateAdmin, userCtrl.deleteUserById)
     .get(authanticate, authenticateAdmin, userCtrl.getUserById)
+    .put(authanticate, authenticateAdmin, userCtrl.updateUserById)
 
 module.exports = router

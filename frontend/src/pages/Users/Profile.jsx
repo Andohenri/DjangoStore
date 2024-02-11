@@ -30,7 +30,7 @@ const Profile = () => {
                 dispatch(setCredentials({...res}))
                 console.log("Update succesfull")
             } catch (error) {
-                console.log(error?.data?.message || error.message)
+                console.log(error?.data || error?.message || error)
             }
         }
     }
