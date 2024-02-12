@@ -14,6 +14,7 @@ import store from './redux/store'
 import PrivateRoute from './components/PrivateRoute.jsx'
 import AdminRoute from './components/AdminRoute.jsx'
 import UserList from './pages/Admin/UserList.jsx'
+import CategoryList from './pages/Admin/CategoryList.jsx'
 
 ReactDOM.createRoot(document.getElementById('root'))
 .render(
@@ -35,6 +36,7 @@ ReactDOM.createRoot(document.getElementById('root'))
               {/* Admin Routes */}
               <Route path='/admin' element={<AdminRoute />}>
                 <Route path='users' element={<UserList />}></Route>
+                <Route path='categories' element={<CategoryList />}></Route>
               </Route>
             </Route>
           </Route>

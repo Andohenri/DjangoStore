@@ -37,7 +37,6 @@ const UserList = () => {
     setEditableUserName(username)
     setEditableUserEmail(email)
   }
-
   const deleteHandler = async (id) => {
     if(window.confirm("Are you sure ?")){
       try {
@@ -88,7 +87,7 @@ const UserList = () => {
                         {editableUser === user._id
                           ? <div className="flex items-center justify-between">
                               <input className="px-4 py-1 outline-none rounded bg-[#121258]" type="text" value={editableUserEmail} onChange={e => setEditableUserEmail(e.target.value)}/>
-                              <button onClick={() => upda(user._id)} className="rounded bg-cyan-700 px-4 py-2 ml-4"><FaCheck /></button>
+                              <button onClick={() => updateHandler(user._id)} className="rounded bg-cyan-700 px-4 py-2 ml-4"><FaCheck /></button>
                             </div>
                           : <div className="flex items-center justify-between">
                               <p>{user.email}</p>

@@ -3,6 +3,7 @@ const app = express()
 const mongoose = require('mongoose')
 const appartRoutes = require('./routes/appartRoutes')
 const userRoutes = require('./routes/userRoutes')
+const categoryRoutes = require('./routes/categoryRoutes')
 const cors = require("cors")
 const cookieParser = require('cookie-parser')
 
@@ -14,6 +15,7 @@ app.use(cookieParser())
 //routes
 app.use('/api/appart', appartRoutes)
 app.use('/api/user', userRoutes)
+app.use('/api/category', categoryRoutes)
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(() => {
