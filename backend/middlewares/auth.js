@@ -7,6 +7,7 @@ exports.authanticate = (req, res, next) => {
         const decodedToken = jwt.verify(token, 'TOKEN')
         req.auth = {
             _id: decodedToken._id,
+            username: decodedToken.username,
             isAdmin: decodedToken.isAdmin
         }
         next()

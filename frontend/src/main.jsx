@@ -15,6 +15,7 @@ import PrivateRoute from './components/PrivateRoute.jsx'
 import AdminRoute from './components/AdminRoute.jsx'
 import UserList from './pages/Admin/UserList.jsx'
 import CategoryList from './pages/Admin/CategoryList.jsx'
+import ProductList from './pages/Admin/ProductList.jsx'
 
 ReactDOM.createRoot(document.getElementById('root'))
 .render(
@@ -37,6 +38,7 @@ ReactDOM.createRoot(document.getElementById('root'))
               <Route path='/admin' element={<AdminRoute />}>
                 <Route path='users' element={<UserList />}></Route>
                 <Route path='categories' element={<CategoryList />}></Route>
+                <Route path='products' element={<ProductList />}></Route>
               </Route>
             </Route>
           </Route>

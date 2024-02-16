@@ -17,7 +17,7 @@ exports.signup = (req, res) => {
                 username: user.username,
                 email: user.email,
                 isAdmin: user.isAdmin,
-                token: generateToken(res, user._id , user.isAdmin)
+                token: generateToken(res, user)
             })
         })
         .catch(error => res.status(400).json(error))
@@ -39,7 +39,7 @@ exports.login = (req, res) => {
                 username: user.username,
                 email: user.email,
                 isAdmin: user.isAdmin,
-                token: generateToken(res, user._id, user.isAdmin)
+                token: generateToken(res, user)
             })
         }).catch(err => res.status(500).json({ err }))
     }).catch(error => res.status(500).json({ error2: error }))

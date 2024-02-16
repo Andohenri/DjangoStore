@@ -14,7 +14,7 @@ exports.createCategory = async (req, res) => {
       const category = await new Category({name}).save()
       res.status(200).json(category)
    } catch (error) {
-      res.status(500).json({error})
+      res.status(500).json({error: "Internal server error!"})
    }
 }
 exports.getAllCategories = async (req, res) => {
