@@ -6,6 +6,7 @@ import { RiMenu3Fill } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux';
 import { useLogoutMutation } from '../redux/api/userApiSlice';
 import { logout } from '../redux/features/auth/authSlice';
+import FavoritesCount from './FavoritesCount';
 
 const NavLinks = ({handleClick}) => {
   const [toogle, setToogle] = useState(false)
@@ -43,10 +44,10 @@ const NavLinks = ({handleClick}) => {
         <FaShoppingBag className='mr-2 text-lg'/> Shop
       </NavLink>
       <NavLink to="/favorite" 
-        className='flex flex-row justify-start items-center text-lg font-medium text-gray-400 hover:text-cyan-400'
+        className='flex flex-row relative justify-start items-center text-lg font-medium text-gray-400 hover:text-cyan-400'
         onClick={() => handleClick && handleClick()}
       >
-        <FaHeart className='mr-2 text-lg'/> Favorites
+        <FaHeart className='mr-2 text-lg'/> Favorites <FavoritesCount />
       </NavLink>
       <NavLink to="/cart" 
         className='flex flex-row justify-start items-center text-lg font-medium text-gray-400 hover:text-cyan-400'

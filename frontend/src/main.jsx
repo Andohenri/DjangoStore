@@ -18,6 +18,8 @@ import CategoryList from './pages/Admin/CategoryList.jsx'
 import CreateProduct from './pages/Admin/CreateProduct.jsx'
 import AllProducts from './pages/Admin/AllProducts.jsx'
 import UpdateProduct from './pages/Admin/UpdateProduct.jsx'
+import Favorites from './pages/Users/Favorites.jsx'
+import ProductDetails from './pages/Users/ProductDetails.jsx'
 
 ReactDOM.createRoot(document.getElementById('root'))
 .render(
@@ -30,12 +32,13 @@ ReactDOM.createRoot(document.getElementById('root'))
           {/* Private Route */}
           <Route path='' element={<PrivateRoute />}>
             <Route path='/' element={<App/>} >
-
               <Route index element={<Home />} />
               <Route path='/shop' element={<Shop />} />
-              <Route path='/favorite' element={<Shop />} />
+              <Route path='/favorite' element={<Favorites />} />
               <Route path='/cart' element={<Shop />} />
               <Route path='/profile' element={<Profile/>}/>
+              <Route path='/product/:id' element={<ProductDetails />}/>
+
               {/* Admin Routes */}
               <Route path='/admin' element={<AdminRoute />}>
                 <Route path='users' element={<UserList />}></Route>

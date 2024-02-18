@@ -1,8 +1,17 @@
-import React from 'react'
+import { Link, useParams } from 'react-router-dom'
+import { useGetProductsQuery } from '../../redux/api/productApiSlice'
+import Loader from '../../components/Loader'
+import Header from '../../components/Header'
 
 const Home = () => {
+
+  const { keyword } = useParams()
+  const { data, isLoading, isError} = useGetProductsQuery({keyword})
+
   return (
-    <div>Home</div>
+    <>
+      {!keyword ? <Header /> : null}
+    </>
   )
 }
 
