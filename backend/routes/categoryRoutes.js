@@ -9,7 +9,7 @@ router.route('/')
    .get(authanticate, getAllCategories)
    .post(authanticate, authenticateAdmin, createCategory)
 router.route("/:id")
-   .get(authanticate, authenticateAdmin, getCategory)
+   .get(authanticate, getCategory)
    .put(authanticate, authenticateAdmin, updateCategory)
    .delete(authanticate, authenticateAdmin, deleteCategory)
 

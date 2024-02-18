@@ -46,14 +46,24 @@ exports.updateProduct = async (req, res) => {
          case !quantity:
             return res.status(401).json({error: "Quantity is required."})
       }
-
-      const updatedCategory = await Product.findByIdAndUpdate(
-         req.params.id, 
-         {...req.body, image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`},
-         {new: true}
-      )
-      await updatedCategory.save()
-      res.status(200).json(updatedCategory)
+      if(req.file){
+         const updatedCategory = await Product.findByIdAndUpdate(
+            req.params.id, 
+            {...req.body, image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`},
+            {new: true}
+         )
+         await updatedCategory.save()
+         res.status(200).json(updatedCategory)
+      }else{
+         delete req.body.image 
+         const updatedCategory = await Product.findByIdAndUpdate(
+            req.params.id, 
+            {...req.body},
+            {new: true}
+         )
+         await updatedCategory.save()
+         res.status(200).json(updatedCategory)
+      }
    } catch (error) {
       res.status(500).json(error)
    }

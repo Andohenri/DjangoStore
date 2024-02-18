@@ -4,7 +4,7 @@ import { useCreateProductMutation } from '../../redux/api/productApiSlice'
 import { useGetAllCategoriesQuery } from '../../redux/api/categoryApi'
 
 
-const ProductList = () => {
+const CreateProduct = () => {
    const [name, setName] = useState('')
    const [description, setDescription] = useState('')
    const [brand, setBrand] = useState('')
@@ -75,4 +75,4 @@ const ProductList = () => {
   )
 }
 
-export default ProductList
+export default CreateProduct
