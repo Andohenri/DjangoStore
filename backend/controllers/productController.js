@@ -147,7 +147,7 @@ exports.addProductReview = async (req, res) => {
          return res.status(404).json({error: "Product not found"})
       }
    } catch (error) {
-      res.status(400).json("Internal server error.")
+      res.status(500).json(error)
    }
 }
 exports.getTopProducts = async (req, res) => {
