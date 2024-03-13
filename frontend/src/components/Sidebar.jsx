@@ -6,14 +6,17 @@ import { RiMenu3Fill } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux';
 import { useLogoutMutation } from '../redux/api/userApiSlice';
 import { logout } from '../redux/features/auth/authSlice';
-import FavoritesCount from './FavoritesCount';
+import Count from './Count';
 
 const NavLinks = ({handleClick}) => {
   const [toogle, setToogle] = useState(false)
   const [logoutApiCall] = useLogoutMutation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  
+  const favorites = useSelector(state => state.favorites)
+  const favoritesCount = favorites.length
+  const carts = useSelector(state => state.cart)
+  const cartCount = carts.cartItems.length
   const { userInfo } = useSelector(state => state.auth)
 
   const toogleDropDown = () =>{
@@ -47,13 +50,13 @@ const NavLinks = ({handleClick}) => {
         className='flex flex-row relative justify-start items-center text-lg font-medium text-gray-400 hover:text-cyan-400'
         onClick={() => handleClick && handleClick()}
       >
-        <FaHeart className='mr-2 text-lg'/> Favorites <FavoritesCount />
+        <FaHeart className='mr-2 text-lg'/> Favorites <Count count={favoritesCount} />
       </NavLink>
       <NavLink to="/cart" 
         className='flex flex-row justify-start items-center text-lg font-medium text-gray-400 hover:text-cyan-400'
         onClick={() => handleClick && handleClick()}
       >
-        <FaShoppingCart className='mr-2 text-lg'/> Carts
+        <FaShoppingCart className='mr-2 text-lg'/> Carts <Count count={cartCount} />
       </NavLink>
     </div>
     <div className='flex flex-col mb-10 md:m-0 gap-5 relative'>

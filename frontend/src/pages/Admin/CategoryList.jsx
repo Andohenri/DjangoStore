@@ -19,7 +19,7 @@ const CategoryList = () => {
          const {error} = await createCategory({name}).unwrap()
          if(error) throw new Error(error)
          setName('')
-         console.log('Created.')
+         console.log('Review Created.')
          refetch()
       } catch (error) {
          console.log(error)

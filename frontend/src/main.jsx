@@ -20,6 +20,7 @@ import AllProducts from './pages/Admin/AllProducts.jsx'
 import UpdateProduct from './pages/Admin/UpdateProduct.jsx'
 import Favorites from './pages/Users/Favorites.jsx'
 import ProductDetails from './pages/Users/ProductDetails.jsx'
+import Cart from './pages/Users/Cart.jsx'
 
 ReactDOM.createRoot(document.getElementById('root'))
 .render(
@@ -35,7 +36,7 @@ ReactDOM.createRoot(document.getElementById('root'))
               <Route index element={<Home />} />
               <Route path='/shop' element={<Shop />} />
               <Route path='/favorite' element={<Favorites />} />
-              <Route path='/cart' element={<Shop />} />
+              <Route path='/cart' element={<Cart />} />
               <Route path='/profile' element={<Profile/>}/>
               <Route path='/product/:id' element={<ProductDetails />}/>
 

@@ -1,5 +1,5 @@
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useCreateReviewMutation, useGetProductByIdQuery } from '../../redux/api/productApiSlice'
 import Loader from '../../components/Loader'
 import { FaBox, FaClock, FaShoppingBag, FaShoppingBasket, FaShoppingCart, FaStar, FaStore } from 'react-icons/fa'
@@ -8,10 +8,12 @@ import { useState } from 'react'
 import Rating from '../../components/Rating'
 import moment from 'moment'
 import ProductTabs from '../../components/ProductTabs'
+import { addToCart } from '../../redux/features/cart/cartSlice'
 
 const ProductDetails = () => {
    const {id} = useParams()
    const navigate = useNavigate()
+   const dispatch = useDispatch()
 
    const [qty, setQty] = useState(1)
    const [rating, setRating] = useState(0)
@@ -23,7 +25,8 @@ const ProductDetails = () => {
    const [createReview, {isLoading: loadingReview}] = useCreateReviewMutation()
   
    const addToCartHandler = () => {
-      //a faire
+      dispatch(addToCart({...product, qty}))
+      navigate('/cart')
    }
    const submitHandler = async (e) => {
       e.preventDefault()
@@ -42,7 +45,7 @@ const ProductDetails = () => {
    return <Loader />
   }
   if(error){
-   return <h1>Error loading the data</h1>
+   return <h1 className='text-center text-white'>Error loading the data</h1>
   }
    return (
       <div className='w-full'>
