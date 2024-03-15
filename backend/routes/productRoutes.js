@@ -1,5 +1,5 @@
 const express = require('express')
-const { createProduct, updateProduct, deleteProduct, getProductById, getProducts, fetchAllProducts, addProductReview, getTopProducts, getNewProducts } = require('../controllers/productController')
+const { createProduct, updateProduct, deleteProduct, getProductById, getProducts, fetchAllProducts, addProductReview, getTopProducts, getNewProducts, filteredProducts } = require('../controllers/productController')
 const { authenticateAdmin, authanticate } = require('../middlewares/auth')
 const multer = require('../middlewares/multer')
 // const formidable = require('express-formidable')
@@ -21,5 +21,7 @@ router.route("/:id")
    .put(authanticate, authenticateAdmin, multer, updateProduct)
    .delete(authanticate, authenticateAdmin, deleteProduct)
    .get(authanticate, getProductById)
+
+router.route("/filtered-products").post(filteredProducts)
 
 module.exports = router

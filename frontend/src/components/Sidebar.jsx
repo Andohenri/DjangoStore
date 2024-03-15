@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLogoutMutation } from '../redux/api/userApiSlice';
 import { logout } from '../redux/features/auth/authSlice';
 import Count from './Count';
+import Logo from '../assets/logo.png'
 
 const NavLinks = ({handleClick}) => {
   const [toogle, setToogle] = useState(false)
@@ -96,9 +97,12 @@ export default function Sidebar() {
       >
         {mobilMenuOpen ? <FaTimes /> : <RiMenu3Fill />}
       </div>
-      <div className={`absolute top-0 h-screen w-2/3 bg-gradient-to-tl from-white/10 to-[#483d9b] backdrop-blur-lg z-10 p-6 md:hidden transition-all ${mobilMenuOpen ? 'left-0': '-left-full'}`}>
-        <h1 className='text-white font-bold text-4xl'>LOGO</h1>
-          <NavLinks handleClick={() => setMobilMenuOpen(false)}/>
+      <div className={`absolute flex flex-col justify-between top-0 h-screen w-2/3 bg-gradient-to-tl from-white/10 to-[#483d9b] backdrop-blur-lg z-10 p-6 md:hidden transition-all ${mobilMenuOpen ? 'left-0': '-left-full'}`}>
+        <div className='flex gap-4 items-center'>
+          <img src={Logo} alt="logo" className='h-12'/>
+          <h1 className='text-white font-bold'>DjangoStore</h1>
+        </div>
+        <NavLinks handleClick={() => setMobilMenuOpen(false)}/>
       </div>
     </>
   )

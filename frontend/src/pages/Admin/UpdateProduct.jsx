@@ -98,7 +98,7 @@ const UpdateProduct = () => {
             <textarea className="mb-4 px-4 py-2 focus:outline-cyan-100 w-full rounded bg-[#121258] block text-white" placeholder="Enter the product description" type="text" value={description} onChange={e => setDescription(e.target.value)}></textarea>
             <div className="flex justify-between">
                <button type="submit" onClick={() => setAction('update')} className="rounded bg-cyan-700 px-4 py-2 text-white font-bold text-xl">{loadingUpdate ? "Updating..." : "Update"}</button>
-               <button type="submit" onClick={() => setAction('delete')} className="rounded bg-cyan-700 px-4 py-2 text-white font-bold text-xl">{loadingDelete ? "Deleting..." : "Delete"}</button>
+               <button type="submit" onClick={() => setAction('delete')} className="rounded bg-red-700 px-4 py-2 text-white font-bold text-xl">{loadingDelete ? "Deleting..." : "Delete"}</button>
             </div>
          </form>
       </div>
